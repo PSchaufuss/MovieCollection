@@ -8,10 +8,11 @@ public class Main
         MovieCollection collection = new MovieCollection();
         Controller controller = new Controller(collection, scanner);
 
+
         boolean running = true;
         while (running)
         {
-            System.out.println("The Totally-Awesome Movie Collection!\n\n");
+            System.out.println("The Totally-Awesome Movie Collection!\n");
             System.out.println("1. Add a new movie");
             System.out.println("2. Exit");
             System.out.print("Choose an option: ");
