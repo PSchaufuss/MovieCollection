@@ -31,4 +31,34 @@ public class MovieCollection
             }
         }
     }
+
+    public Movie searchMovie(String title)
+    {
+        for (Movie movie : movies)
+        {
+            if (movie.getTitle().equalsIgnoreCase(title))
+            {
+                return movie;
+            }
+        }
+        return null;
+    }
+
+    public void searchMoviesByPartialTitle(String partialTitle)
+    {
+        boolean foundAny = false;
+        for (Movie movie : movies)
+        {
+            if (movie.getTitle().toLowerCase().contains(partialTitle.toLowerCase()))
+            {
+                System.out.println(movie);
+                System.out.println("------------------------------");
+                foundAny = true;
+            }
+        }
+        if (!foundAny)
+        {
+            System.out.println("No movies found with that part of its title.");
+        }
+    }
 }
