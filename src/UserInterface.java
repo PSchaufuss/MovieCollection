@@ -21,7 +21,8 @@ public class UserInterface
             System.out.println("2. Show all movies");
             System.out.println("3. Search for a movie by title");
             System.out.println("4. Search for movies by part of the title");
-            System.out.println("5. Exit");
+            System.out.println("5. Edit a movie");
+            System.out.println("6. Exit");
             System.out.print("Choose an option: ");
 
             int choice = scanner.nextInt();
@@ -42,8 +43,13 @@ public class UserInterface
 
                 case 4:
                     controller.searchMovieByPartOfTitle();
+                    break;
 
                 case 5:
+                    controller.editMovie();
+                    break;
+
+                case 6:
                     running = false;
                     System.out.println("Goodbye!");
                     break;

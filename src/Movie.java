@@ -22,9 +22,19 @@ public class Movie
             return title;
         }
 
+        public void setTitle(String title)
+        {
+            this.title = title;
+        }
+
         public String getDirector()
         {
             return director;
+        }
+
+        public void setDirector(String director)
+        {
+            this.director = director;
         }
 
         public int getYearCreated()
@@ -32,9 +42,19 @@ public class Movie
             return yearCreated;
         }
 
+        public void setYearCreated(int yearCreated)
+        {
+            this.yearCreated = yearCreated;
+        }
+
         public String getGenre()
         {
             return genre;
+        }
+
+        public void setGenre(String genre)
+        {
+            this.genre = genre;
         }
 
         public boolean isColor()
@@ -42,9 +62,19 @@ public class Movie
             return isColor;
         }
 
-        public int getLnegthMinutes()
+        public void setColor(boolean isColor)
+        {
+            this.isColor = isColor;
+        }
+
+        public int getLengthMinutes()
         {
             return lengthMinutes;
+        }
+
+        public void setLengthMinutes(int lengthMinutes)
+        {
+            this.lengthMinutes = lengthMinutes;
         }
 
         public String toString()
