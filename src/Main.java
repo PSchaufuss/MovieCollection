@@ -14,7 +14,8 @@ public class Main
         {
             System.out.println("The Totally-Awesome Movie Collection!\n");
             System.out.println("1. Add a new movie");
-            System.out.println("2. Exit");
+            System.out.println("2. Show all movies");
+            System.out.println("3. Exit");
             System.out.print("Choose an option: ");
 
             int choice = scanner.nextInt();
@@ -27,6 +28,10 @@ public class Main
                     break;
 
                 case 2:
+                    controller.displayAllMovies();
+                    break;
+
+                case 3:
                     running = false;
                     System.out.println("Goodbye!");
                     break;

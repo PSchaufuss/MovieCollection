@@ -36,4 +36,11 @@ public class Controller
 
         System.out.println("Movie added successfully!\n");
     }
+
+    public void displayAllMovies()
+    {
+        System.out.println("\nAll Movies in the Collection:\n");
+        collection.displayMovies();
+        System.out.println();
+    }
 }
