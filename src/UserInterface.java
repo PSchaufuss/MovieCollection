@@ -101,37 +101,18 @@ public class UserInterface
 
             switch (choice)
             {
-                case 1:
-                    controller.addMovie();
-                    break;
-
-                case 2:
-                    displayAllMovies();
-                    break;
-
-                case 3:
-                    controller.searchMovieByTitle();
-                    break;
-
-                case 4:
-                    controller.searchMovieByPartOfTitle();
-                    break;
-
-                case 5:
-                    controller.editMovie();
-                    break;
-
-                case 6:
-                    controller.deleteMovie();
-                    break;
-
-                case 7:
+                case 1 -> controller.addMovie();
+                case 2 -> displayAllMovies();
+                case 3 -> controller.searchMovieByTitle();
+                case 4 -> controller.searchMovieByPartOfTitle();
+                case 5 -> controller.editMovie();
+                case 6 -> controller.deleteMovie();
+                case 7 ->
+                {
                     running = false;
-                    System.out.println("Goodbye!");
-                    break;
-
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+                    displayMessage("Goodbye!");
+                }
+                default -> displayMessage("Invalid choice. Please try again.");
             }
         }
 

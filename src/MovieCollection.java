@@ -36,24 +36,6 @@ public class MovieCollection
         return movies;
     }
 
-    public void displayMovies()
-    {
-        if (movies.isEmpty())
-        {
-            System.out.println("No movies in the collection.");
-            return;
-        }
-
-        for (int i = 0; i < movies.size(); i++)
-        {
-            System.out.println(movies.get(i));
-            if (i < movies.size() - 1)
-            {
-                System.out.println("------------------------------");
-            }
-        }
-    }
-
 
     public Movie searchMovie(String title)
     {
@@ -81,8 +63,4 @@ public class MovieCollection
         return foundMovies;
     }
 
-    public ArrayList<Movie> getMovieCollectionList()
-    {
-        return movies;
-    }
 }

@@ -1,17 +1,13 @@
-import java.util.InputMismatchException;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Controller
 {
     private MovieCollection collection;
-    private Scanner scanner;
     private UserInterface ui;
 
-    public Controller(MovieCollection collection, Scanner scanner, UserInterface ui)
+    public Controller(MovieCollection collection, UserInterface ui)
     {
         this.collection = collection;
-        this.scanner = scanner;
         this.ui = ui;
     }
 
@@ -33,8 +29,7 @@ public class Controller
 
     public void deleteMovie()
     {
-        ui.displayMessage("Enter the title of the movie you want to delete:");
-        String title = scanner.nextLine();
+        String title = ui.readString("Enter the title of the movie you want to delete:");
         boolean isDeleted = collection.deleteMovie(title);
 
         if (isDeleted)
@@ -49,8 +44,7 @@ public class Controller
 
     public void editMovie()
     {
-        ui.displayMessage("\nEnter the title of the movie you want to edit:");
-        String title = scanner.nextLine();
+        String title = ui.readString("\nEnter the title of the movie you want to edit:");
         Movie movieToEdit = collection.searchMovie(title);
 
         if (movieToEdit != null)
@@ -106,7 +100,8 @@ public class Controller
                 }
             }
 
-            ui.displayMessage("Movie updated successfully!\n------------------------------\n" + movieToEdit + "\n------------------------------");
+            ui.displayMessage("Movie updated successfully!");
+            ui.displayMessage(UserInterface.SEPARATOR);
         }
 
             else
@@ -121,27 +116,10 @@ public class Controller
             return collection.getMovies();
         }
 
-        public void displayAllMovies()
-        {
-            if (collection.isEmpty())
-            {
-                ui.displayMessage("No movies in the collection.");
-            }
-            else
-            {
-                for (Movie movie : collection.getMovies())
-                {
-                    ui.displayMovie(movie);
-                    ui.displayMessage("------------------------------");
-                }
-
-            }
-        }
 
         public void searchMovieByTitle()
         {
-            ui.displayMessage("\nEnter the title to search for:");
-            String title = scanner.nextLine();
+            String title = ui.readString("\nEnter the title to search for:");
             Movie foundMovie = collection.searchMovie(title);
 
             if (foundMovie != null)
@@ -157,8 +135,7 @@ public class Controller
 
         public void searchMovieByPartOfTitle()
         {
-            ui.displayMessage("Enter part of the title to search for:");
-            String partialTitle = scanner.nextLine();
+            String partialTitle = ui.readString("Enter part of the title to search for:");
             ArrayList<Movie> foundMovies = collection.searchMoviesByPartialTitle(partialTitle);
 
             if (foundMovies.isEmpty())
@@ -170,7 +147,7 @@ public class Controller
                 for (Movie movie : foundMovies)
                 {
                     ui.displayMovie(movie);
-                    ui.displayMessage("------------------------------");
+                    ui.displayMessage(UserInterface.SEPARATOR);
                 }
             }
         }
