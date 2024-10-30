@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -46,6 +47,41 @@ public class UserInterface
         this.controller = controller;
     }
 
+    public int readInt(String prompt)
+    {
+        int number = 0;
+        boolean valid = false;
+        while (!valid)
+        {
+            try
+            {
+                System.out.println(prompt);
+                number = scanner.nextInt();
+                scanner.nextLine();
+                valid = true;
+            }
+            catch (InputMismatchException e)
+            {
+                System.out.println("Invalid input Please enter a valid number.");
+                scanner.nextLine();
+            }
+        }
+        return number;
+    }
+
+    public boolean readBoolean(String prompt)
+    {
+        displayMessage(prompt);
+        String response = scanner.nextLine();
+        return response.equalsIgnoreCase("yes");
+    }
+
+    public String readString(String prompt)
+    {
+        displayMessage(prompt);
+        return scanner.nextLine();
+    }
+
     public void startProgram()
     {
         boolean running = true;
@@ -61,8 +97,7 @@ public class UserInterface
             System.out.println("7. Exit");
             System.out.print("Choose an option: ");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = readInt("Enter your choice: ");
 
             switch (choice)
             {

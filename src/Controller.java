@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -14,28 +15,15 @@ public class Controller
         this.ui = ui;
     }
 
+
     public void addMovie()
     {
-        ui.displayMessage("\nEnter title: ");
-        String title = scanner.nextLine();
-
-        ui.displayMessage("Enter director: ");
-        String director = scanner.nextLine();
-
-        ui.displayMessage("Enter release year: ");
-        int yearCreated = scanner.nextInt();
-        scanner.nextLine();
-
-        ui.displayMessage("Enter genre: ");
-        String genre = scanner.nextLine();
-
-        ui.displayMessage("Is the movie in color? (yes/no): ");
-        String colorInput = scanner.nextLine();
-        boolean isColor = colorInput.equalsIgnoreCase("yes");
-
-        ui.displayMessage("Enter movie length (minutes): ");
-        int lengthMinutes = scanner.nextInt();
-        scanner.nextLine();
+        String title = ui.readString("\nEnter title: ");
+        String director = ui.readString("Enter director: ");
+        int yearCreated = ui.readInt("Enter release year: ");
+        String genre = ui.readString("Enter genre: ");
+        boolean isColor = ui.readBoolean("Is the movie in color? (yes/no): ");
+        int lengthMinutes = ui.readInt("Enter movie length (minutes): ");
 
         Movie movie = new Movie(title, director, yearCreated, genre, isColor, lengthMinutes);
         collection.addMovie(movie);
@@ -69,55 +57,53 @@ public class Controller
         {
             ui.displayMessage("Editing movie: " + movieToEdit + "\nLeave field blank if you don't want to edit anything.");
 
-            ui.displayMessage("New title (" + movieToEdit.getTitle() + "): ");
-            String newTitle = scanner.nextLine();
-
+            String newTitle = ui.readString("New title (" + movieToEdit.getTitle() + "): ");
             if (!newTitle.isEmpty())
             {
                 movieToEdit.setTitle(newTitle);
             }
 
-            ui.displayMessage("New director (" + movieToEdit.getDirector() + "): ");
-            String newDirector = scanner.nextLine();
-
+            String newDirector = ui.readString("New director (" + movieToEdit.getDirector() + "): ");
             if (!newDirector.isEmpty())
             {
                 movieToEdit.setDirector(newDirector);
             }
 
-            ui.displayMessage("New release year (" + movieToEdit.getYearCreated() + "): ");
-            String yearInput = scanner.nextLine();
-
+            String yearInput = ui.readString("New release year (" + movieToEdit.getYearCreated() + "): ");
             if (!yearInput.isEmpty())
             {
-                int newYear = Integer.parseInt(yearInput);
-                movieToEdit.setYearCreated(newYear);
+                try
+                {
+                    int newYear = Integer.parseInt(yearInput);
+                    movieToEdit.setYearCreated(newYear);
+                }
+                catch (NumberFormatException e)
+                {
+                    ui.displayMessage("Invalid year format. Skipping this field.");
+                }
             }
 
-            ui.displayMessage("New genre (" + movieToEdit.getGenre() + "): ");
-            String newGenre = scanner.nextLine();
-
+            String newGenre = ui.readString("New genre (" + movieToEdit.getGenre() + "): ");
             if (!newGenre.isEmpty())
             {
                 movieToEdit.setGenre(newGenre);
             }
 
-            ui.displayMessage("Is the movie in color? (yes/no) [" + (movieToEdit.isColor() ? "Yes" : "No") +"]: ");
-            String colorInput = scanner.nextLine();
+            boolean isColor = ui.readBoolean("Is the movie in color? (yes/no) [" + (movieToEdit.isColor() ? "Yes" : "No") +"]: ");
+            movieToEdit.setColor(isColor);
 
-            if (!colorInput.isEmpty())
-            {
-                boolean newColor = colorInput.equalsIgnoreCase("yes");
-                movieToEdit.setColor(newColor);
-            }
-
-            ui.displayMessage("New length (minutes) (" + movieToEdit.getLengthMinutes() + "): ");
-            String lengthInput = scanner.nextLine();
-
+            String lengthInput = ui.readString("New length (minutes) (" + movieToEdit.getLengthMinutes() + "): ");
             if (!lengthInput.isEmpty())
             {
-                int newLength = Integer.parseInt(lengthInput);
-                movieToEdit.setLengthMinutes(newLength);
+                try
+                {
+                    int newLength = Integer.parseInt(lengthInput);
+                    movieToEdit.setLengthMinutes(newLength);
+                }
+                catch (NumberFormatException e)
+                {
+                    ui.displayMessage("Invalid length format. Skipping this field.");
+                }
             }
 
             ui.displayMessage("Movie updated successfully!\n------------------------------\n" + movieToEdit + "\n------------------------------");

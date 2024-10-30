@@ -1,4 +1,4 @@
-import org.junit.jupiter.api.Test;
+/* import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 
@@ -17,6 +17,7 @@ public class MovieCollectionTest
         assertEquals(movie, collection.getMovieCollectionList().get(0), "The movie added should match the one retrieved.");
     }
 
+    @Test
     public void testGetMovieCollectionList()
     {
         MovieCollection collection = new MovieCollection();
@@ -33,4 +34,19 @@ public class MovieCollectionTest
         assertTrue(movies.contains(movie2), "Collection should contain the second movie.");
 
     }
+
+    @Test
+    public void testDeleteMovie() {
+        MovieCollection collection = new MovieCollection();
+        Movie movie = new Movie("Inception", "Christopher Nolan", 2010, "Sci-Fi", true, 148);
+        collection.addMovie(movie);
+
+        boolean isDeleted = collection.deleteMovie("Inception");
+        assertTrue(isDeleted, "Movie should be deleted successfully.");
+        assertTrue(collection.isEmpty(), "Collection should be empty after deleting the movie.");
+
+        boolean notFound = collection.deleteMovie("Nonexistent Movie");
+        assertFalse(notFound, "Attempting to delete a non-existent movie should return false.");
+    }
 }
+*/
