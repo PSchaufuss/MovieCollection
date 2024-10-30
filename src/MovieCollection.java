@@ -14,6 +14,16 @@ public class MovieCollection
         movies.add(movie);
     }
 
+    public boolean isEmpty()
+    {
+        return movies.isEmpty();
+    }
+
+    public ArrayList<Movie> getMovies()
+    {
+        return movies;
+    }
+
     public void displayMovies()
     {
         if (movies.isEmpty())
@@ -44,21 +54,17 @@ public class MovieCollection
         return null;
     }
 
-    public void searchMoviesByPartialTitle(String partialTitle)
+    public ArrayList<Movie> searchMoviesByPartialTitle(String partialTitle)
     {
-        boolean foundAny = false;
+        ArrayList<Movie> foundMovies = new ArrayList<>()
+                ;
         for (Movie movie : movies)
         {
             if (movie.getTitle().toLowerCase().contains(partialTitle.toLowerCase()))
             {
-                System.out.println(movie);
-                System.out.println("------------------------------");
-                foundAny = true;
+                foundMovies.add(movie);
             }
         }
-        if (!foundAny)
-        {
-            System.out.println("No movies found with that part of its title.");
-        }
+        return foundMovies;
     }
 }

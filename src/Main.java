@@ -6,8 +6,10 @@ public class Main
     {
         Scanner scanner = new Scanner(System.in);
         MovieCollection collection = new MovieCollection();
-        Controller controller = new Controller(collection, scanner);
-        UserInterface ui = new UserInterface(scanner, controller);
+        UserInterface ui = new UserInterface(scanner, null);
+        Controller controller = new Controller(collection, scanner, ui);
+        ui.setController(controller);
+
 
         ui.startProgram();
         scanner.close();

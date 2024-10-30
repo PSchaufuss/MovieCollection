@@ -1,9 +1,11 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class UserInterface
 {
     private Scanner scanner;
     private Controller controller;
+    public static final String SEPARATOR = "------------------------------";
 
     public UserInterface(Scanner scanner, Controller controller)
     {
@@ -11,11 +13,44 @@ public class UserInterface
         this.controller = controller;
     }
 
-    public void startProgram() {
+    public void displayMessage(String message)
+    {
+        System.out.println(message);
+    }
+
+    public void displayMovie(Movie movie)
+    {
+        System.out.println(movie);
+    }
+
+    public void displayAllMovies() {
+
+        ArrayList<Movie> movies = controller.getAllMovies();
+
+        if (movies.isEmpty())
+        {
+            displayMessage("No movies in the collection.");
+        }
+        else
+        {
+            for (Movie movie : movies)
+            {
+                displayMovie(movie);
+                displayMessage(SEPARATOR);
+            }
+        }
+    }
+
+    public void setController(Controller controller)
+    {
+        this.controller = controller;
+    }
+
+    public void startProgram()
+    {
         boolean running = true;
 
-        while (running)
-        {
+        while (running) {
             System.out.println("The Totally-Awesome Movie Collection!\n");
             System.out.println("1. Add a new movie");
             System.out.println("2. Show all movies");
@@ -28,13 +63,14 @@ public class UserInterface
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            switch (choice) {
+            switch (choice)
+            {
                 case 1:
                     controller.addMovie();
                     break;
 
                 case 2:
-                    controller.displayAllMovies();
+                    displayAllMovies();
                     break;
 
                 case 3:
@@ -60,6 +96,5 @@ public class UserInterface
         }
 
         scanner.close();
-
     }
 }

@@ -79,7 +79,7 @@ public class Movie
 
         public String toString()
         {
-            return "Title: " + title + "\nDirector: " + director + "\nYear: " + yearCreated + "\nGenre: " + genre + "\nColor: " + (isColor ? "Yes" : "No") + "\nLength: " + lengthMinutes + " minutes";
+            return "\nTitle: " + title + "\nDirector: " + director + "\nYear: " + yearCreated + "\nGenre: " + genre + "\nColor: " + (isColor ? "Yes" : "No") + "\nLength: " + lengthMinutes + " minutes";
         }
 
 

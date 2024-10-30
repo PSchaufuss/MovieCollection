@@ -1,54 +1,59 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Controller
 {
     private MovieCollection collection;
     private Scanner scanner;
+    private UserInterface ui;
 
-    public Controller(MovieCollection collection, Scanner scanner)
+    public Controller(MovieCollection collection, Scanner scanner, UserInterface ui)
     {
         this.collection = collection;
         this.scanner = scanner;
+        this.ui = ui;
     }
 
     public void addMovie()
     {
-        System.out.println("\nEnter title: ");
+        ui.displayMessage("\nEnter title: ");
         String title = scanner.nextLine();
-        System.out.println("Enter director: ");
+
+        ui.displayMessage("Enter director: ");
         String director = scanner.nextLine();
-        System.out.println("Enter release year: ");
+
+        ui.displayMessage("Enter release year: ");
         int yearCreated = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Enter genre: ");
+
+        ui.displayMessage("Enter genre: ");
         String genre = scanner.nextLine();
 
-        System.out.println("Is the movie in color? (yes/no): ");
+        ui.displayMessage("Is the movie in color? (yes/no): ");
         String colorInput = scanner.nextLine();
         boolean isColor = colorInput.equalsIgnoreCase("yes");
 
-        System.out.println("Enter movie length (minutes): ");
+        ui.displayMessage("Enter movie length (minutes): ");
         int lengthMinutes = scanner.nextInt();
         scanner.nextLine();
 
         Movie movie = new Movie(title, director, yearCreated, genre, isColor, lengthMinutes);
         collection.addMovie(movie);
 
-        System.out.println("Movie added successfully!\n");
+        ui.displayMessage("Movie added successfully!\n");
     }
 
     public void editMovie()
     {
-        System.out.println("\nEnter the title of the movie you want to edit:");
+        ui.displayMessage("\nEnter the title of the movie you want to edit:");
         String title = scanner.nextLine();
         Movie movieToEdit = collection.searchMovie(title);
 
         if (movieToEdit != null)
         {
-            System.out.println("Editing movie: " + movieToEdit);
-            System.out.println("Leave field blank if you don't want to edit anything.");
+            ui.displayMessage("Editing movie: " + movieToEdit + "\nLeave field blank if you don't want to edit anything.");
 
-            System.out.print("New title (" + movieToEdit.getTitle() + "): ");
+            ui.displayMessage("New title (" + movieToEdit.getTitle() + "): ");
             String newTitle = scanner.nextLine();
 
             if (!newTitle.isEmpty())
@@ -56,7 +61,7 @@ public class Controller
                 movieToEdit.setTitle(newTitle);
             }
 
-            System.out.print("New director (" + movieToEdit.getDirector() + "): ");
+            ui.displayMessage("New director (" + movieToEdit.getDirector() + "): ");
             String newDirector = scanner.nextLine();
 
             if (!newDirector.isEmpty())
@@ -64,7 +69,7 @@ public class Controller
                 movieToEdit.setDirector(newDirector);
             }
 
-            System.out.print("New release year (" + movieToEdit.getYearCreated() + "): ");
+            ui.displayMessage("New release year (" + movieToEdit.getYearCreated() + "): ");
             String yearInput = scanner.nextLine();
 
             if (!yearInput.isEmpty())
@@ -73,7 +78,7 @@ public class Controller
                 movieToEdit.setYearCreated(newYear);
             }
 
-            System.out.print("New genre (" + movieToEdit.getGenre() + "): ");
+            ui.displayMessage("New genre (" + movieToEdit.getGenre() + "): ");
             String newGenre = scanner.nextLine();
 
             if (!newGenre.isEmpty())
@@ -81,7 +86,7 @@ public class Controller
                 movieToEdit.setGenre(newGenre);
             }
 
-            System.out.print("Is the movie in color? (yes/no) [" + (movieToEdit.isColor() ? "Yes" : "No") +"]: ");
+            ui.displayMessage("Is the movie in color? (yes/no) [" + (movieToEdit.isColor() ? "Yes" : "No") +"]: ");
             String colorInput = scanner.nextLine();
 
             if (!colorInput.isEmpty())
@@ -90,7 +95,7 @@ public class Controller
                 movieToEdit.setColor(newColor);
             }
 
-            System.out.println("New length (minutes) (" + movieToEdit.getLengthMinutes() + "): ");
+            ui.displayMessage("New length (minutes) (" + movieToEdit.getLengthMinutes() + "): ");
             String lengthInput = scanner.nextLine();
 
             if (!lengthInput.isEmpty())
@@ -99,47 +104,73 @@ public class Controller
                 movieToEdit.setLengthMinutes(newLength);
             }
 
-            System.out.println("Movie updated successfully!\n");
-            System.out.println("------------------------------");
-            System.out.println(movieToEdit);
-            System.out.println("------------------------------");
+            ui.displayMessage("Movie updated successfully!\n------------------------------\n" + movieToEdit + "\n------------------------------");
         }
 
             else
             {
-                System.out.println("No movie found with that title.");
+                ui.displayMessage("No movie found with that title.");
             }
 
         }
 
+        public ArrayList<Movie> getAllMovies()
+        {
+            return collection.getMovies();
+        }
+
         public void displayAllMovies()
         {
-            System.out.println("\nAll Movies in the Collection:\n");
-            collection.displayMovies();
-            System.out.println();
+            if (collection.isEmpty())
+            {
+                ui.displayMessage("No movies in the collection.");
+            }
+            else
+            {
+                for (Movie movie : collection.getMovies())
+                {
+                    ui.displayMovie(movie);
+                    ui.displayMessage("------------------------------");
+                }
+
+            }
         }
 
         public void searchMovieByTitle()
         {
-            System.out.println("\nEnter the title to search for:");
+            ui.displayMessage("\nEnter the title to search for:");
             String title = scanner.nextLine();
             Movie foundMovie = collection.searchMovie(title);
 
             if (foundMovie != null)
             {
-                System.out.println("\nMovie found:");
-                System.out.println(foundMovie);
+                ui.displayMessage("\nMovie found:\n" + foundMovie);
             }
-         else
+
+            else
             {
-                System.out.println("No movie found with that title.");
+                ui.displayMessage("No movie found with that title.");
             }
         }
 
         public void searchMovieByPartOfTitle()
         {
-            System.out.println("\nEnter part of the title to search for:");
+            ui.displayMessage("Enter part of the title to search for:");
             String partialTitle = scanner.nextLine();
-            collection.searchMoviesByPartialTitle(partialTitle);
+            ArrayList<Movie> foundMovies = collection.searchMoviesByPartialTitle(partialTitle);
+
+            if (foundMovies.isEmpty())
+            {
+                ui.displayMessage("No movies found with that part of its title.");
+            }
+            else
+            {
+                for (Movie movie : foundMovies)
+                {
+                    ui.displayMovie(movie);
+                    ui.displayMessage("------------------------------");
+                }
+            }
         }
-}
+    }
+
