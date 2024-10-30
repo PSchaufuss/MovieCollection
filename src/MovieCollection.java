@@ -14,6 +14,18 @@ public class MovieCollection
         movies.add(movie);
     }
 
+    public boolean deleteMovie(String title)
+    {
+        Movie movieToDelete = searchMovie(title);
+
+        if (movieToDelete != null)
+        {
+            movies.remove(movieToDelete);
+            return true;
+        }
+        return false;
+    }
+
     public boolean isEmpty()
     {
         return movies.isEmpty();
@@ -42,6 +54,7 @@ public class MovieCollection
         }
     }
 
+
     public Movie searchMovie(String title)
     {
         for (Movie movie : movies)
@@ -66,5 +79,10 @@ public class MovieCollection
             }
         }
         return foundMovies;
+    }
+
+    public ArrayList<Movie> getMovieCollectionList()
+    {
+        return movies;
     }
 }

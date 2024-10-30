@@ -43,6 +43,22 @@ public class Controller
         ui.displayMessage("Movie added successfully!\n");
     }
 
+    public void deleteMovie()
+    {
+        ui.displayMessage("Enter the title of the movie you want to delete:");
+        String title = scanner.nextLine();
+        boolean isDeleted = collection.deleteMovie(title);
+
+        if (isDeleted)
+        {
+            ui.displayMessage("Movie deleted successfully!");
+        }
+        else
+        {
+            ui.displayMessage("No movie found with that title.");
+        }
+    }
+
     public void editMovie()
     {
         ui.displayMessage("\nEnter the title of the movie you want to edit:");
