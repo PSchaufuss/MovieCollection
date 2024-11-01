@@ -6,6 +6,7 @@ public class Controller
     private MovieCollection collection;
     private UserInterface ui;
     private FileHandler fileHandler;
+    private boolean dataChanged = false;
 
     public Controller(MovieCollection collection, UserInterface ui, FileHandler fileHandler)
     {
@@ -17,10 +18,16 @@ public class Controller
 
     public void saveMovies()
     {
+        if (!dataChanged)
+        {
+            ui.displayMessage("No changes detected. No changes saved.");
+            return;
+        }
         try
         {
             fileHandler.saveMovies(collection.getMovies());
             ui.displayMessage("Movies saved to file successfully!");
+            dataChanged = false;
         }
         catch (IOException e)
         {
@@ -35,6 +42,7 @@ public class Controller
             ArrayList<Movie> movies = fileHandler.loadMovies();
             collection.setMovies(movies);
             ui.displayMessage("Movies loaded from file.");
+            dataChanged = false;
         }
         catch (IOException | ClassNotFoundException e)
         {
@@ -57,6 +65,7 @@ public class Controller
         collection.addMovie(movie);
 
         ui.displayMessage("Movie added successfully!\n");
+        dataChanged = true;
     }
 
     public void deleteMovie()
@@ -67,6 +76,7 @@ public class Controller
         if (isDeleted)
         {
             ui.displayMessage("Movie deleted successfully!");
+            dataChanged = true;
         }
         else
         {
@@ -134,6 +144,7 @@ public class Controller
 
             ui.displayMessage("Movie updated successfully!");
             ui.displayMessage(UserInterface.SEPARATOR);
+            dataChanged = true;
         }
 
             else
