@@ -51,6 +51,17 @@ public class Controller
 
     }
 
+    public void sortMovies(String attribute)
+    {
+        collection.sortMoviesByAttribute(attribute);
+    }
+
+    public void displayAllMovies()
+    {
+        ArrayList<Movie> sortedMovies = collection.getMovies();
+        ui.displayMovies(sortedMovies);
+    }
+
 
     public void addMovie()
     {
@@ -158,12 +169,6 @@ public class Controller
         {
             return collection.getMovies();
         }
-
-        public void sortMoviesByTitle()
-        {
-            collection.sortMoviesByTitle();
-        }
-
 
         public void searchMovieByTitle()
         {

@@ -24,10 +24,8 @@ public class UserInterface
         System.out.println(movie);
     }
 
-    public void displayAllMovies() {
-        controller.sortMoviesByTitle();
-        ArrayList<Movie> movies = controller.getAllMovies();
-
+    public void displayMovies(ArrayList<Movie> movies)
+    {
         if (movies.isEmpty())
         {
             displayMessage("No movies in the collection.\n");
@@ -36,10 +34,18 @@ public class UserInterface
         {
             for (Movie movie : movies)
             {
-                displayMovie(movie);
+                System.out.println(movie);
                 displayMessage(SEPARATOR);
             }
         }
+    }
+
+    public void displayAllMovies()
+    {
+        String attribute = readString("Enter attribute to sort by (title, year, director, genre): \n");
+        controller.sortMovies(attribute);
+        System.out.println(SEPARATOR);
+        controller.displayAllMovies();
     }
 
     public void setController(Controller controller)
@@ -88,18 +94,18 @@ public class UserInterface
 
         while (running) {
             System.out.println("\nThe Totally-Awesome Movie Collection!\n");
-            System.out.println("1. Add a new movie");
-            System.out.println("2. Show all movies");
-            System.out.println("3. Search for a movie by title");
+            System.out.println("1. Add new movie");
+            System.out.println("2. View movies");
+            System.out.println("3. Search for movie by title");
             System.out.println("4. Search for movies by part of the title");
-            System.out.println("5. Edit a movie");
-            System.out.println("6. Delete a movie");
+            System.out.println("5. Edit movie");
+            System.out.println("6. Delete movie");
             System.out.println("7. Save movies");
             System.out.println("8. Load movies");
             System.out.println("9. Exit");
             System.out.print("\nChoose an option.");
 
-            int choice = readInt("Enter your choice: ");
+            int choice = readInt("\n" + SEPARATOR + "\nChoice: ");
 
             switch (choice)
             {

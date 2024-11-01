@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Locale;
 
 public class MovieCollection
 {
@@ -38,10 +39,18 @@ public class MovieCollection
         return movies;
     }
 
-    public void sortMoviesByTitle()
+    public void sortMoviesByAttribute(String attribute)
     {
-        Collections.sort(movies, Comparator.comparing(Movie::getTitle));
+        switch (attribute.toLowerCase())
+        {
+            case "title", "t" -> Collections.sort(movies, Comparator.comparing(Movie::getTitle));
+            case "year", "y" -> Collections.sort(movies, Comparator.comparing(Movie::getYearCreated));
+            case "director", "d" -> Collections.sort(movies, Comparator.comparing(Movie::getDirector));
+            case "genre", "g" -> Collections.sort(movies, Comparator.comparing(Movie::getGenre));
+            default -> Collections.sort(movies, Comparator.comparing(Movie::getTitle));
+        }
     }
+
 
     public void setMovies(ArrayList<Movie> movies)
     {
