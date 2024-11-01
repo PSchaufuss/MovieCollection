@@ -6,10 +6,12 @@ import java.util.Locale;
 public class MovieCollection
 {
     private ArrayList<Movie> movies;
+    private UserInterface ui;
 
     public MovieCollection()
     {
         this.movies = new ArrayList();
+        this.ui = ui;
     }
 
     public void addMovie(Movie movie)
@@ -36,20 +38,40 @@ public class MovieCollection
 
     public ArrayList<Movie> getMovies()
     {
-        return movies;
+        return new ArrayList<>(movies);
     }
 
-    public void sortMoviesByAttribute(String attribute)
+    public boolean sortMoviesByAttribute(String primaryAttribute, String secondaryAttribute)
     {
-        switch (attribute.toLowerCase())
+        Comparator<Movie> primaryComparator = getComparator(primaryAttribute);
+        Comparator<Movie> secondaryComparator = getComparator(secondaryAttribute);
+
+        if (primaryComparator == null)
         {
-            case "title", "t" -> Collections.sort(movies, Comparator.comparing(Movie::getTitle));
-            case "year", "y" -> Collections.sort(movies, Comparator.comparing(Movie::getYearCreated));
-            case "director", "d" -> Collections.sort(movies, Comparator.comparing(Movie::getDirector));
-            case "genre", "g" -> Collections.sort(movies, Comparator.comparing(Movie::getGenre));
-            default -> Collections.sort(movies, Comparator.comparing(Movie::getTitle));
+            primaryComparator = getComparator("title");
+            ui.displayMessage("Couldn't understand primary input. Sorting by title as default.");
         }
+        if (secondaryComparator == null)
+        {
+            secondaryComparator = getComparator("title");
+        }
+
+        Collections.sort(movies, primaryComparator.thenComparing(secondaryComparator));
+        return primaryComparator != null && secondaryComparator != null;
     }
+
+    private Comparator<Movie> getComparator(String attribute)
+    {
+        return switch (attribute.toLowerCase())
+        {
+            case "title", "t" -> Comparator.comparing(Movie::getTitle);
+            case "year", "y" -> Comparator.comparing(Movie::getYearCreated);
+            case "director", "d" -> Comparator.comparing(Movie::getDirector);
+            case "genre", "g" -> Comparator.comparing(Movie::getGenre);
+            default -> null;
+        };
+    }
+
 
 
     public void setMovies(ArrayList<Movie> movies)

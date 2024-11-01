@@ -51,9 +51,13 @@ public class Controller
 
     }
 
-    public void sortMovies(String attribute)
+    public void sortMovies(String primaryAttribute, String secondaryAttribute)
     {
-        collection.sortMoviesByAttribute(attribute);
+        boolean validAttributes = collection.sortMoviesByAttribute(primaryAttribute, secondaryAttribute);
+        if (!validAttributes)
+        {
+            ui.displayMessage("Couldn't understand one or both attributes. Sorting alphabetically by title as default.\n");
+        }
     }
 
     public void displayAllMovies()

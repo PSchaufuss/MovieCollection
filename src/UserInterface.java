@@ -42,8 +42,10 @@ public class UserInterface
 
     public void displayAllMovies()
     {
-        String attribute = readString("Enter attribute to sort by (title, year, director, genre): \n");
-        controller.sortMovies(attribute);
+        String primaryAttribute = readString("Enter primary attribute to sort by (title(t), year(y), director(d), genre(g)): ");
+        String secondaryAttribute = readString("Enter secondary attribute to sort by (title(t), year(y), director(d), genre(g)): ");
+
+        controller.sortMovies(primaryAttribute, secondaryAttribute);
         System.out.println(SEPARATOR);
         controller.displayAllMovies();
     }
