@@ -30,7 +30,7 @@ public class UserInterface
 
         if (movies.isEmpty())
         {
-            displayMessage("No movies in the collection.");
+            displayMessage("No movies in the collection.\n");
         }
         else
         {
@@ -87,15 +87,17 @@ public class UserInterface
         boolean running = true;
 
         while (running) {
-            System.out.println("The Totally-Awesome Movie Collection!\n");
+            System.out.println("\nThe Totally-Awesome Movie Collection!\n");
             System.out.println("1. Add a new movie");
             System.out.println("2. Show all movies");
             System.out.println("3. Search for a movie by title");
             System.out.println("4. Search for movies by part of the title");
             System.out.println("5. Edit a movie");
             System.out.println("6. Delete a movie");
-            System.out.println("7. Exit");
-            System.out.print("Choose an option: ");
+            System.out.println("7. Save movies");
+            System.out.println("8. Load movies");
+            System.out.println("9. Exit");
+            System.out.print("\nChoose an option.");
 
             int choice = readInt("Enter your choice: ");
 
@@ -107,7 +109,9 @@ public class UserInterface
                 case 4 -> controller.searchMovieByPartOfTitle();
                 case 5 -> controller.editMovie();
                 case 6 -> controller.deleteMovie();
-                case 7 ->
+                case 7 -> controller.saveMovies();
+                case 8 -> controller.loadMovies();
+                case 9 ->
                 {
                     running = false;
                     displayMessage("Goodbye!");

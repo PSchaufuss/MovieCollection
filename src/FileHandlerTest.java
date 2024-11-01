@@ -1,7 +1,37 @@
-/* import org.junit.jupiter.api.Test;
+
+
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
+import java.io.IOException;
+import java.io.File;
+import java.util.Scanner; //Dette er kun for at lave en dummy UI, da jeg ikke kunne finde en anden løsning for at få koden til at virke
 
+public class FileHandlerTest
+{
+@Test
+    public void testSaveAndLoadMovies() throws IOException, ClassNotFoundException
+    {
+        Scanner scanner = new Scanner(System.in);
+        UserInterface ui = new UserInterface(scanner, null); // Den oprettede 'dummy interface'
+
+        FileHandler fileHandler = new FileHandler(ui);
+
+        ArrayList<Movie> movies = new ArrayList<>();
+
+        movies.add(new Movie("Inception", "Christopher Nolan", 2010, "Sci-Fi", true, 148));
+
+        fileHandler.saveMovies(movies);
+
+        ArrayList<Movie> loadedMovies = fileHandler.loadMovies();
+
+        assertEquals(1, loadedMovies.size(), "Should have loaded one movie");
+        assertEquals("Inception", loadedMovies.get(0).getTitle(), "Movie title should match");
+
+        new File("movies.dat").delete();
+    }
+
+/*
 public class MovieCollectionTest
 {
 
@@ -50,3 +80,4 @@ public class MovieCollectionTest
     }
 }
 */
+}

@@ -7,11 +7,14 @@ public class Main
         Scanner scanner = new Scanner(System.in);
         MovieCollection collection = new MovieCollection();
         UserInterface ui = new UserInterface(scanner, null);
-        Controller controller = new Controller(collection, ui);
+        FileHandler fileHandler = new FileHandler(ui);
+        Controller controller = new Controller(collection, ui, fileHandler);
         ui.setController(controller);
 
 
         ui.startProgram();
+
+        controller.saveMovies();
         scanner.close();
 
     }

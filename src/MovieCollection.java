@@ -36,6 +36,11 @@ public class MovieCollection
         return movies;
     }
 
+    public void setMovies(ArrayList<Movie> movies)
+    {
+        this.movies = movies;
+    }
+
 
     public Movie searchMovie(String title)
     {

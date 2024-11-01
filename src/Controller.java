@@ -1,14 +1,46 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Controller
 {
     private MovieCollection collection;
     private UserInterface ui;
+    private FileHandler fileHandler;
 
-    public Controller(MovieCollection collection, UserInterface ui)
+    public Controller(MovieCollection collection, UserInterface ui, FileHandler fileHandler)
     {
         this.collection = collection;
         this.ui = ui;
+        this.fileHandler = fileHandler;
+        loadMovies();
+    }
+
+    public void saveMovies()
+    {
+        try
+        {
+            fileHandler.saveMovies(collection.getMovies());
+            ui.displayMessage("Movies saved to file successfully!");
+        }
+        catch (IOException e)
+        {
+            ui.displayMessage("Error saving movies: " + e.getMessage());
+        }
+    }
+
+    public void loadMovies()
+    {
+        try
+        {
+            ArrayList<Movie> movies = fileHandler.loadMovies();
+            collection.setMovies(movies);
+            ui.displayMessage("Movies loaded from file.");
+        }
+        catch (IOException | ClassNotFoundException e)
+        {
+            ui.displayMessage("Error loading movies: " + e.getMessage());
+        }
+
     }
 
 
