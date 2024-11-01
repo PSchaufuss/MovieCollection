@@ -25,7 +25,7 @@ public class UserInterface
     }
 
     public void displayAllMovies() {
-
+        controller.sortMoviesByTitle();
         ArrayList<Movie> movies = controller.getAllMovies();
 
         if (movies.isEmpty())

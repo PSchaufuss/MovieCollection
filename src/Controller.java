@@ -159,6 +159,11 @@ public class Controller
             return collection.getMovies();
         }
 
+        public void sortMoviesByTitle()
+        {
+            collection.sortMoviesByTitle();
+        }
+
 
         public void searchMovieByTitle()
         {

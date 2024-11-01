@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MovieCollection
 {
@@ -34,6 +36,11 @@ public class MovieCollection
     public ArrayList<Movie> getMovies()
     {
         return movies;
+    }
+
+    public void sortMoviesByTitle()
+    {
+        Collections.sort(movies, Comparator.comparing(Movie::getTitle));
     }
 
     public void setMovies(ArrayList<Movie> movies)
